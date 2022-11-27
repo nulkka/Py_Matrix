@@ -79,7 +79,7 @@ char_arr = [
 
 
 def resize(event):
-    global max_colums, canvas
+    global max_colums, canvas, cw, ch
 
     cw = js.window.innerWidth
     ch = js.window.innerHeight
@@ -104,7 +104,7 @@ class FallingChar:
         self.y = y
 
     def draw(self, ctx):
-        self.value = char_arr[int(random.random() * len(char_arr))]
+        self.value = char_arr[int(random.random() * len(char_arr))].upper()
         self.speed = (random.random() * font_size * 3) / 4 + (font_size * 3) / 4
 
         ctx.fillStyle = "rgba(0, 255, 0)"
@@ -113,18 +113,18 @@ class FallingChar:
         self.y += self.speed
 
         if self.y > ch:
-            self.y = (random.random() * ch) / 2
-            self.x = (random.random() * max_colums) * font_size
+            self.y = (random.random() * ch) / 2 - 50
+            self.x = int(random.random() * max_colums) * font_size
             self.speed = (random.random() * -1 * font_size * 3) / 4 + (font_size * 3) / 4
 
 
 def update(e):
-    global frames
+    global frames, cw, ch
 
     if len(falling_char_attr) < max_char_count:
         falling_char = FallingChar(
-            random.random() * max_colums * font_size,
-            (random.random() * ch) / 2
+            int(random.random() * max_colums) * font_size,
+            (random.random() * ch) / 2 - 50
         )
 
         falling_char_attr.append(falling_char)
